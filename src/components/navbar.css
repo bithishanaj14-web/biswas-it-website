@@ -1,0 +1,267 @@
+
+/* ===== Navbar Base ===== */
+
+.site-header {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  background: #ffffff;
+}
+
+.custom-navbar {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.custom-navbar-container {
+  width: min(1200px, 92%);
+  min-height: 82px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* ===== Logo ===== */
+
+.brand-logo {
+  flex-shrink: 0;
+  color: #172033;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+
+.brand-logo span {
+  color: #2563eb;
+}
+
+/* ===== Desktop Menu ===== */
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-link {
+  position: relative;
+  display: inline-block;
+  padding: 10px 0;
+
+  color: #525866;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+  color: #2563eb;
+}
+
+.navbar-link.active {
+  font-weight: 700;
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: #2563eb;
+
+  transition: width 0.2s ease;
+}
+
+.navbar-link:hover::after,
+.navbar-link.active::after {
+  width: 100%;
+}
+
+/* ===== CTA Button ===== */
+
+.navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  flex-shrink: 0;
+  padding: 13px 23px;
+  border: 1px solid #2563eb;
+  border-radius: 50px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-cta:hover {
+  background: #1d4ed8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ===== Hamburger Button ===== */
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 21px;
+  height: 2px;
+  border-radius: 2px;
+
+  background: #172033;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu-toggle.is-open span:first-child {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-open span:last-child {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== Tablet & Mobile ===== */
+
+@media (max-width: 991.98px) {
+  .custom-navbar-container {
+    min-height: 74px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-basis: 100%;
+    width: 100%;
+
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+
+    padding: 18px 0 8px;
+    border-top: 1px solid #eeeeee;
+  }
+
+  .navbar-menu.show {
+    display: flex;
+  }
+
+  .navbar-links {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .navbar-links li {
+    width: 100%;
+  }
+
+  .navbar-link {
+    display: block;
+    padding: 13px 8px;
+  }
+
+  .navbar-link::after {
+    display: none;
+  }
+
+  .navbar-link.active {
+    padding-left: 14px;
+    border-left: 3px solid #2563eb;
+    background: #f3f6ff;
+  }
+
+  .navbar-cta {
+    align-self: flex-start;
+  }
+}
+
+/* ===== Small Mobile ===== */
+
+@media (max-width: 480px) {
+  .custom-navbar-container {
+    width: 90%;
+  }
+
+  .brand-logo {
+    font-size: 25px;
+  }
+
+  .navbar-cta {
+    width: 100%;
+  }
+}
+
+/* ===== Keyboard Accessibility ===== */
+
+.brand-logo:focus-visible,
+.navbar-link:focus-visible,
+.navbar-cta:focus-visible,
+.menu-toggle:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 4px;
+}
