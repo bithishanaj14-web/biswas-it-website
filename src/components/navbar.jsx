@@ -17,6 +17,8 @@ function Navbar() {
     { name: "Our Work", path: "/portfolio" },
     { name: "About Us", path: "/about" },
     { name: "Contact", path: "/contact" },
+    { name: "Blog", path: "/blog" },
+
   ];
 
   return (

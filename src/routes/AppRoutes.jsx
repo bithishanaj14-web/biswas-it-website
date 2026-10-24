@@ -11,6 +11,10 @@ import NotFound from "../pages/notfound.jsx";
 import Navbar from "../components/navbar.jsx";
 import Footer from "../components/footer.jsx";
 
+
+import Blog from "../pages/blog";
+import BlogDetails from "../pages/blogdetails";
+
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -24,6 +28,11 @@ function AppRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
+
+
+        <Route path="/blog" element={<Blog />} />
+
+        <Route path="/blog/:slug" element={<BlogDetails />} />
       </Routes>
 
       <Footer />
