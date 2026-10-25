@@ -1,9 +1,11 @@
 
 import emailjs from "@emailjs/browser";
-
-
 import { useState } from "react";
 import "./contact.css";
+
+const SERVICE_ID = "service_s3wrhi9";
+const TEMPLATE_ID = "template_u6g52kh";
+const PUBLIC_KEY = "Tt2QH2E4DoKzxSCG3";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -14,6 +16,7 @@ function Contact() {
   });
 
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function handleChange(e) {
     setFormData({
@@ -22,8 +25,9 @@ function Contact() {
     });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setStatus("");
 
     if (
       !formData.name.trim() ||
@@ -35,9 +39,35 @@ function Contact() {
       return;
     }
 
-    setStatus(
-      "Your form is valid! Email delivery will work after EmailJS integration."
-    );
+    setLoading(true);
+
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          reply_to: formData.email,
+        },
+        PUBLIC_KEY
+      );
+
+      setStatus("Message sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setStatus("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -55,10 +85,11 @@ function Contact() {
         </div>
 
         <div className="row g-0 contact-card">
-          {/* Left information panel */}
           <div className="col-lg-5">
             <div className="contact-info">
-              <span className="info-label">CONTACT INFORMATION</span>
+              <span className="info-label">
+                CONTACT INFORMATION
+              </span>
 
               <h2>Let's talk about your next project.</h2>
 
@@ -97,10 +128,10 @@ function Contact() {
             </div>
           </div>
 
-          {/* Right form panel */}
           <div className="col-lg-7">
             <div className="contact-form-wrapper">
               <h3>Send us a message</h3>
+
               <p className="form-subtitle">
                 Fill out the form below and tell us how we can help.
               </p>
@@ -111,6 +142,7 @@ function Contact() {
                     <label htmlFor="name" className="form-label">
                       Your Name
                     </label>
+
                     <input
                       id="name"
                       type="text"
@@ -127,6 +159,7 @@ function Contact() {
                     <label htmlFor="email" className="form-label">
                       Email Address
                     </label>
+
                     <input
                       id="email"
                       type="email"
@@ -144,6 +177,7 @@ function Contact() {
                   <label htmlFor="subject" className="form-label">
                     Subject
                   </label>
+
                   <input
                     id="subject"
                     type="text"
@@ -160,6 +194,7 @@ function Contact() {
                   <label htmlFor="message" className="form-label">
                     Your Message
                   </label>
+
                   <textarea
                     id="message"
                     name="message"
@@ -175,12 +210,18 @@ function Contact() {
                 <button
                   type="submit"
                   className="contact-submit-btn"
+                  disabled={loading}
                 >
-                  Send Message <span>→</span>
+                  {loading ? "Sending..." : "Send Message"}
+                  {!loading && <span> →</span>}
                 </button>
 
                 {status && (
-                  <p className="contact-status mt-3" role="status">
+                  <p
+                    className="contact-status mt-3"
+                    role="status"
+                    aria-live="polite"
+                  >
                     {status}
                   </p>
                 )}
@@ -194,3 +235,4 @@ function Contact() {
 }
 
 export default Contact;
+
